@@ -42,28 +42,47 @@
 #include "cbcreatebutton.h"
 #include "cbvirtualwallsensor.h"
 
+
+#define  CB_DEVICE_LASER "laser:0"
+#define  CB_DEVICE_IR "ir:0"
+#define  CB_DEVICE_WALL "wall:0"
+#define  CB_DEVICE_DRIVE_TRAIN "drivetrain:0"
+#define  CB_DEVICE_POWER_PACK "powerpack:0"
+#define  CB_DEVICE_FRONT_FIDUCIAL "fiducial:0"
+#define  CB_DEVICE_TOP_FIDUCIAL "fiducial:1"
+#define  CB_DEVICE_LIGHTS "lights:0"
+#define  CB_DEVICE_TEXT_DISPLAY "textdisplay:0"
+#define  CB_DEVICE_LOW_SIDE_DRIVER "lowsidedriver:0"
+#define  CB_DEVICE_PHOTO_SENSOR "photosensor:0"
+#define  CB_DEVICE_BUMPER "bumper:0"
+#define  CB_DEVICE_VIRTUAL_WALL "virtualwall:0"
+#define  CB_DEVICE_CLIFF "cliff:0"
+#define  CB_DEVICE_OVERCURRENT "overcurrent:0"
+#define  CB_DEVICE_BUTTON "button:0"
+#define  CB_DEVICE_WHEEL_DROP "wheeldrop:0"
+
 namespace Rapi
 {
 
 /**
  * A Rapi based implementation for a chatterbox robot. Possible devices:
- *  laser:0            Urg laser
- *  ir:0               IR distance sensors on base board
- *  wall:0             ICreate wall sensor on front right side
- *  drivetrain:0       ICreate drive train
- *  powerpack:0        ICreate power pack
- *  fiducial:0         ICreate omni IR led in front of robot
- *  fiducial:1         IR fiducial led on base board
- *  lights:0           RGB leds on base board
- *  textdisplay:0      7seg display on top of base board
- *  lowsidedriver:0    ICreate low side driver
- *  photosensor:0      Photo sensor on top of base board
- *  bumper:0           ICreate bumpers
- *  virtualwall:0      ICreate virtual wall sensors, based on the omni ir
- *  cliff:0            ICreate cliff sensor
- *  overcurrent:0      ICreate overcurrent sensors
- *  button:0           ICreate top control buttons
- *  wheeldrop:0        ICreate wheel drop sensor
+ *  CB_DEVICE_LASER		Urg laser
+ *  CB_DEVICE_IR               	IR distance sensors on base board
+ *  CB_DEVICE_WALL             	ICreate wall sensor on front right side
+ *  CB_DEVICE_DRIVE_TRAIN       ICreate drive train
+ *  CB_DEVICE_POWER_PACK 	ICreate power pack
+ *  CB_DEVICE_FRONT_FIDUCIAL   	ICreate omni IR led in front of robot
+ *  CB_DEVICE_TOP_FIDUCIAL  	IR fiducial led on base board
+ *  CB_DEVICE_LIGHTS         	RGB leds on base board
+ *  CB_DEVICE_TEXT_DISPLAY      7seg display on top of base board
+ *  CB_DEVICE_LOW_SIDE_DRIVER   ICreate low side driver
+ *  CB_DEVICE_PHOTO_SENSOR      Photo sensor on top of base board
+ *  CB_DEVICE_BUMPER 		ICreate bumpers
+ *  CB_DEVICE_VIRTUAL_WALL   	ICreate virtual wall sensors, based on the omni ir
+ *  CB_DEVICE_CLIFF            	ICreate cliff sensor
+ *  CB_DEVICE_OVERCURRENT    	ICreate overcurrent sensors
+ *  CB_DEVICE_BUTTON  		ICreate top control buttons
+ *  CB_DEVICE_WHEEL_DROP	ICreate wheel drop sensor
  * @author Jens Wawerla <jwawerla@sfu.ca>
  */
 class CCBRobot : public ARobot
@@ -109,15 +128,15 @@ class CCBRobot : public ARobot
      */
     virtual int findDevice ( ARangeFinder* &device, std::string devName );
     virtual int findDevice ( ADrivetrain2dof* &device, std::string devName );
-    virtual int findDevice ( APowerPack* &device, std::string devName );
+    virtual int findDevice ( APowerPack* &device, std::string devName);
     virtual int findDevice ( AFiducialFinder* &device, std::string devName );
-    virtual int findDevice ( ALights* &device, std::string devName );
+    virtual int findDevice ( ALights* &device, std::string devName);
     virtual int findDevice ( ATextDisplay* &device, std::string devName );
     virtual int findDevice ( ABinarySensorArray* &device, std::string devName );
-    virtual int findDevice ( ASwitchArray* &device, std::string devName );
+    virtual int findDevice ( ASwitchArray* &device, std::string devName);
     virtual int findDevice ( AAnalogSensorArray* &device, std::string devName );
-    virtual int findDevice ( ABlobFinder* &device, std::string devName );
-    
+    virtual int findDevice ( ABlobFinder* &device, std::string devName);
+
   protected:
     /**
      * This method sleeps for interval seconds since the last call
