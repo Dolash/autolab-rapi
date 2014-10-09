@@ -39,7 +39,7 @@ CStageSonar::CStageSonar( Stg::ModelRanger* stgModel, std::string devName )
   assert( stgModel );
   mStgRanger = stgModel;
   mFgEnabled = false;
-  mStgRanger->GetWorld()->AddUpdateCallback ( ( Stg::stg_world_callback_t )
+  mStgRanger->GetWorld()->AddUpdateCallback ( ( Stg::world_callback_t )
                                  sonarUpdate,
                                  this );
 
@@ -73,8 +73,8 @@ int CStageSonar::init()
     mRelativeBeamPose[i].mX = sensors[i].pose.x;
     mRelativeBeamPose[i].mY = sensors[i].pose.y;
     mRelativeBeamPose[i].mYaw =  sensors[i].pose.a;
-    mMaxRange = max( mMaxRange, sensors[i].bounds_range.max );
-    mMinRange = max( mMinRange, sensors[i].bounds_range.min );
+    mMaxRange = max( mMaxRange, sensors[i].range.max );
+    mMinRange = max( mMinRange, sensors[i].range.min );
     mBeamConeAngle =  sensors[i].fov;
   }
 
@@ -99,7 +99,7 @@ void CStageSonar::updateData( const double dt)
   if ( mFgEnabled ) {
     const std::vector<Stg::ModelRanger::Sensor> sensors = mStgRanger->GetSensors();
     for ( unsigned int i = 0; i < mNumSamples; i++ )
-      mRangeData[i].range = sensors[i].range;
+      mRangeData[i].range = sensors[i].ranges[0];
     mTimeStamp = mStgRanger->GetWorld()->SimTimeNow() / 1e6;
     notifyDataUpdateObservers();
   }

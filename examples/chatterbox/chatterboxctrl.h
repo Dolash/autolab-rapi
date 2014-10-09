@@ -1,6 +1,6 @@
 /***************************************************************************
  * Project: RAPI                                                           *
- * Author:  Jens Wawerla (jwawerla@sfu.ca)                                 *
+ * Author:  Jacob Perron (jperron@sfu.ca)                                  *
  * $Id: $
  ***************************************************************************
  *   This program is free software; you can redistribute it and/or modify  *
@@ -29,8 +29,9 @@ using namespace Rapi;
 typedef enum {RUN, CHARGING, DOCKING, UNDOCKING} tState;
 
 /**
- * An example controller for chatterbox
- * @author Jens Wawerla
+ * A template controller for chatterbox.
+ * Includes obstacle avoidence and docking/undocking behaviours.
+ * @author Jacob Perron
  */
 class CChatterboxCtrl : public ARobotCtrl
 {
@@ -51,9 +52,10 @@ class CChatterboxCtrl : public ARobotCtrl
      */
     void updateData(float dt);
     /**
-     * Runs the demo controller
+     * The core behaviour of the robot.
+     * This is called every time step
      */
-    void demo();
+    void run();
     /**
      * Checks if home base is detected or not
      * @return true if detected, false otherwise
@@ -61,6 +63,9 @@ class CChatterboxCtrl : public ARobotCtrl
     bool homeBaseDetected();
     /** Obstacle avoidance routine */
     void obstacleAvoid();
+    /** Emergency stop routine */
+    void emergencyStop();
+
     /** Drivetrain */
     CCBDrivetrain2dof* mDrivetrain;
     /** Infrared sensors */
@@ -87,12 +92,15 @@ class CChatterboxCtrl : public ARobotCtrl
     AAnalogSensorArray* mPhoto;
     /** Create button */
     ABinarySensorArray* mButton;
+    /** Cliff sensor */
+    ABinarySensorArray* mCliff;
     /** Odometry */
     COdometry* mOdometry;
     /** Some limit */
     CLimit mLimit;
     /** Data logger */
     CDataLogger* mDataLogger;
+
     /** Redis client */
     CRedisClient* mRedis;
     /** Overhead camera tracker */
@@ -103,10 +111,8 @@ class CChatterboxCtrl : public ARobotCtrl
     tState mState;
     /** Time since start of controller [s] */
     float mTime;
-    /** Flag if we should run the demo or not */
-    bool mFgRunDemo;
-    /** Min photo value */
-    float mMinPhoto;
+    /** Flag if we should run the main behaviour or not */
+    bool mFgRun;
     /** Red Led index */
     unsigned int mRedLedId;
     /** Text for 7seg display */
@@ -115,6 +121,10 @@ class CChatterboxCtrl : public ARobotCtrl
     bool mFgMotor;
     /** General purpose timer */
     float mTimer;
+
+    /** Min photo value */
+    float mMinPhoto;
+
 };
 
 #endif

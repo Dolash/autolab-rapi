@@ -52,7 +52,7 @@ CStageRobot::CStageRobot( Stg::Model* mod )
   // update interval [s]
   mUpdateInterval = mStageModel->GetUpdateInterval() * 1e-6;
 
-  mStageModel->GetWorld()->AddUpdateCallback(( Stg::stg_world_callback_t )
+  mStageModel->GetWorld()->AddUpdateCallback(( Stg::world_callback_t )
       ctrlUpdate,
       this );
 
@@ -97,7 +97,7 @@ int CStageRobot::findDevice( ARangeFinder* &device, std::string devName )
 {
   CStageLaser* laser = NULL;
   CStageSonar* sonar = NULL;
-  Stg::ModelLaser* modLaser;
+  Stg::ModelRanger* modLaser;
   Stg::ModelRanger* modRanger;
 
   // check if we already created such a device
@@ -111,7 +111,7 @@ int CStageRobot::findDevice( ARangeFinder* &device, std::string devName )
   if ( devName.find( LASER_MODEL_NAME ) != std::string::npos ) {
     // no device created yet, so do it now
     //modLaser = ( Stg::ModelLaser* ) mStageModel->GetModel( devName.c_str() );
-    modLaser = ( Stg::ModelLaser* ) mStageModel->GetChild( devName.c_str() );
+    modLaser = ( Stg::ModelRanger* ) mStageModel->GetChild( devName.c_str() );
     if ( modLaser == NULL ) {
       ERROR2( "Stage model %s has no device named %s",
               mStageModel->Token(), devName.c_str() );

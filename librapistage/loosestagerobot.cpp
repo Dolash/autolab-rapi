@@ -38,7 +38,7 @@ CLooseStageRobot::~CLooseStageRobot()
 int CLooseStageRobot::findDevice( CLooseStageLaser* &device,
                                   std::string devName )
 {
-  Stg::ModelLaser* modLaser;
+  Stg::ModelRanger* modLaser;
 
   // check if we already created such a device
   device = ( CLooseStageLaser* ) findDeviceByName( devName );
@@ -47,8 +47,8 @@ int CLooseStageRobot::findDevice( CLooseStageLaser* &device,
   }
 
   // no device created yet, so do it now
-  //modLaser = ( Stg::ModelLaser* ) mStageModel->GetModel( devName.c_str() );
-  modLaser = ( Stg::ModelLaser* ) mStageModel->GetChild( devName.c_str() );
+  //modLaser = ( Stg::ModelRanger* ) mStageModel->GetModel( devName.c_str() );
+  modLaser = ( Stg::ModelRanger* ) mStageModel->GetChild( devName.c_str() );
   if ( modLaser == NULL ) {
     ERROR2( "Stage model %s has no device named %s",
             mStageModel->Token(), devName.c_str() );

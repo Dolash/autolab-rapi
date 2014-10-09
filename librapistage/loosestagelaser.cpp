@@ -28,7 +28,7 @@ namespace Rapi
 {
 
 //-----------------------------------------------------------------------------
-CLooseStageLaser::CLooseStageLaser ( Stg::ModelLaser* stgLaser,
+CLooseStageLaser::CLooseStageLaser ( Stg::ModelRanger* stgLaser,
                                      std::string devName )
     : CStageLaser ( stgLaser, devName )
 {
@@ -38,7 +38,7 @@ CLooseStageLaser::~CLooseStageLaser()
 {
 }
 //-----------------------------------------------------------------------------
-Stg::ModelLaser* CLooseStageLaser::getStageModel ()
+Stg::ModelRanger* CLooseStageLaser::getStageModel ()
 {
   return mStgLaser;
 }

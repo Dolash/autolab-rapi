@@ -43,7 +43,7 @@ CStagePowerPack::CStagePowerPack ( Stg::ModelPosition* stgModel,
   mStgPowerPack = stgModel->FindPowerPack();
   mSimInterval = stgModel->GetEnergyInterval() / 1e6;
 
-  stgModel->GetWorld()->AddUpdateCallback ( ( Stg::stg_world_callback_t )
+  stgModel->GetWorld()->AddUpdateCallback ( ( Stg::world_callback_t )
                                 powerUpdate,
                                 this );
   if ( mStgPowerPack == NULL ) {

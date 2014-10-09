@@ -41,7 +41,7 @@ namespace Rapi
     mStgBlobFinder = stgModel;
     mFgEnabled = false;
 
-    mStgBlobFinder->GetWorld()->AddUpdateCallback ( ( Stg::stg_world_callback_t )
+    mStgBlobFinder->GetWorld()->AddUpdateCallback ( ( Stg::world_callback_t )
                                         blobUpdate,
                                         this );
     setEnabled ( true );
@@ -77,7 +77,7 @@ namespace Rapi
 //-----------------------------------------------------------------------------
   void CStageBlobFinder::updateData ( const double dt )
   {
-    Stg::ModelBlobfinder::Blob* blobs;
+    std::vector<Stg::ModelBlobfinder::Blob> blobs;
 
     if ( mFgEnabled )
     {
@@ -89,7 +89,7 @@ namespace Rapi
       }
 
 
-      blobs = mStgBlobFinder->GetBlobs ( &mNumReadings );
+      blobs = mStgBlobFinder->GetBlobsMutable();// &mNumReadings );
 
 
 

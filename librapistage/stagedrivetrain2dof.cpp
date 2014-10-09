@@ -41,7 +41,7 @@ CStageDrivetrain2dof::CStageDrivetrain2dof ( Stg::ModelPosition* stgModel,
   assert ( stgModel );
   mStgPosition = stgModel;
   mFgEnabled = false;
-  mStgPosition->GetWorld()->AddUpdateCallback ( ( Stg::stg_world_callback_t )
+  mStgPosition->GetWorld()->AddUpdateCallback ( ( Stg::world_callback_t )
                                     positionUpdate,
                                     this );
   mOdometry = new CStageOdometry ( mStgPosition, devName + ":odometry" );
@@ -87,7 +87,7 @@ void CStageDrivetrain2dof::updateData( const double dt)
   float time;
   if ( mFgEnabled ) {
     applyVelocityLimits();
-    applyAccelerationLimits( mStgPosition->GetPoseInterval() / 1e6);
+    applyAccelerationLimits( mStgPosition->GetInterval() / 1e6);
     mStgPosition->SetXSpeed ( mVelocityLimitedCmd.mXDot );
     mStgPosition->SetTurnSpeed ( mVelocityLimitedCmd.mYawDot );
 

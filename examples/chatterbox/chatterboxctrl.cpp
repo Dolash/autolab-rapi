@@ -30,23 +30,25 @@ CChatterboxCtrl::CChatterboxCtrl ( ARobot* robot )
   mMinPhoto = INFINITY;
   mRedLedId = 0;
   mText = 0;
+
+  // Check if docked/charging
   mState = RUN;
-  mFgRunDemo = false;
+  mFgRun = false;
   mFgMotor = false;
 
-  mRobot->findDevice ( mPowerPack, "powerpack:0" );
-  mRobot->findDevice ( drivetrain, "drivetrain:0" );
-  mRobot->findDevice ( mIr, "ir:0" );
-  mRobot->findDevice ( mTextDisplay, "textdisplay:0" );
-  mRobot->findDevice ( mBumper, "bumper:0" );
-  mRobot->findDevice ( mLights, "lights:0" );
-  mRobot->findDevice ( mWheelDrop, "wheeldrop:0" );
-  mRobot->findDevice ( mLowSideDriver, "lowsidedriver:0" );
-  mRobot->findDevice ( mButton, "button:0" );
-  mRobot->findDevice ( mFrontFiducial, "fiducial:0");
-  //mRobot->findDevice ( mTopFiducial, "fiducial:1");
-  mRobot->findDevice ( mPhoto, "photosensor:0" );
-  //mRobot->findDevice ( mLaser, "laser:0" );
+  mRobot->findDevice ( mPowerPack, CB_DEVICE_POWER_PACK );
+  mRobot->findDevice ( drivetrain, CB_DEVICE_DRIVE_TRAIN );
+  mRobot->findDevice ( mIr, CB_DEVICE_IR );
+  mRobot->findDevice ( mTextDisplay, CB_DEVICE_TEXT_DISPLAY );
+  mRobot->findDevice ( mBumper, CB_DEVICE_BUMPER );
+  mRobot->findDevice ( mLights, CB_DEVICE_LIGHTS );
+  mRobot->findDevice ( mWheelDrop, CB_DEVICE_WHEEL_DROP );
+  mRobot->findDevice ( mLowSideDriver, CB_DEVICE_LOW_SIDE_DRIVER );
+  mRobot->findDevice ( mButton, CB_DEVICE_BUTTON );
+  mRobot->findDevice ( mFrontFiducial, CB_DEVICE_FRONT_FIDUCIAL);
+  mRobot->findDevice ( mTopFiducial, CB_DEVICE_TOP_FIDUCIAL);
+  mRobot->findDevice ( mPhoto, CB_DEVICE_PHOTO_SENSOR );
+  mRobot->findDevice ( mCliff, CB_DEVICE_CLIFF );
 
   mDrivetrain = ( CCBDrivetrain2dof* ) drivetrain;
   mOdometry = mDrivetrain->getOdometry();
@@ -55,12 +57,12 @@ CChatterboxCtrl::CChatterboxCtrl ( ARobot* robot )
   mDataLogger = CDataLogger::getInstance( "chatterbox.log", OVERWRITE );
   mDataLogger->setInterval( 0.1 );
   mOdometry->setCoordinateSystemOffset( CPose2d(5.0, 2.5, PI/2.0) );
-  mOdometry->startLogging("");
+  //mOdometry->startLogging("");
 
 
-  mTracker = new CAutolabTracker("Tracker", mRobot->getName(), "192.168.1.116", 6379);
-  mTracker->startLogging("");
-  mRobot->addDevice(mTracker);
+  //mTracker = new CAutolabTracker("Tracker", mRobot->getName(), "192.168.1.116", 6379);
+  //mTracker->startLogging("");
+  //mRobot->addDevice(mTracker);
 
   if ( rapiError->hasError() ) {
     rapiError->print();
@@ -68,8 +70,9 @@ CChatterboxCtrl::CChatterboxCtrl ( ARobot* robot )
   }
 
   ( ( CCBDrivetrain2dof* ) mDrivetrain )->setDefaultOIMode ( CB_MODE_FULL );
-  // show some text, just for fun
-  mTextDisplay->setText ( "1" );
+
+  // Set text display
+  mTextDisplay->setText ( "A" );
 
   // set up a heart beat with 1Hz
   mLights->setBlink ( DOT, true, 1.0 );
@@ -110,19 +113,19 @@ void CChatterboxCtrl::updateData ( float dt )
   //mTracker->updateData(dt);
   mTracker->print();
 
-  if ( not mFgRunDemo ) {
+  if ( not mFgRun ) {
     if ( mTime < 10.0 ) {
       c[0] = 57 - ( int ) mTime;
       mTextDisplay->setText ( c );
       if ( mButton->mBitData[0] )
-        mFgRunDemo = true;
+        mFgRun = true;
     }
     else {
       mRobot->quit();
     }
   }
   else {
-    demo();
+    run();
     mOdometry->print();
   }
 
@@ -139,7 +142,7 @@ void CChatterboxCtrl::updateData ( float dt )
   mDataLogger->write( mTime );
 }
 //-----------------------------------------------------------------------------
-void CChatterboxCtrl::demo()
+void CChatterboxCtrl::run()
 {
   char blue = 0;
   char red = 0;
@@ -212,6 +215,7 @@ void CChatterboxCtrl::demo()
     } // switch
   }
 
+/*
   switch ( mState ) {
     case DOCKING:
       if ( mDrivetrain->getOIMode() != CB_MODE_PASSIVE ) {
@@ -252,6 +256,7 @@ void CChatterboxCtrl::demo()
         mDrivetrain->stop();
       break;
   } // switch
+*/
 }
 //-----------------------------------------------------------------------------
 void CChatterboxCtrl::obstacleAvoid()
@@ -296,3 +301,7 @@ void CChatterboxCtrl::obstacleAvoid()
   mDrivetrain->setVelocityCmd ( velocity, turnRate );
 }
 //-----------------------------------------------------------------------------
+void CChatterboxCtrl::emergencyStop()
+{
+
+}

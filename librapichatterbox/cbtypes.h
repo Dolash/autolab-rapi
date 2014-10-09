@@ -15,6 +15,26 @@
 #define CB_GREEN_BUOY_FORCE_FIELD      246
 #define CB_RED_GREEN_BUOY_FORCE_FIELD  254
 
+/** Devices */
+#define  CB_DEVICE_LASER "laser:0"
+#define  CB_DEVICE_IR "ir:0"
+#define  CB_DEVICE_WALL "wall:0"
+#define  CB_DEVICE_DRIVE_TRAIN "drivetrain:0"
+#define  CB_DEVICE_POWER_PACK "powerpack:0"
+#define  CB_DEVICE_FRONT_FIDUCIAL "fiducial:0"
+#define  CB_DEVICE_TOP_FIDUCIAL "fiducial:1"
+#define  CB_DEVICE_LIGHTS "lights:0"
+#define  CB_DEVICE_TEXT_DISPLAY "textdisplay:0"
+#define  CB_DEVICE_LOW_SIDE_DRIVER "lowsidedriver:0"
+#define  CB_DEVICE_PHOTO_SENSOR "photosensor:0"
+#define  CB_DEVICE_BUMPER "bumper:0"
+#define  CB_DEVICE_VIRTUAL_WALL "virtualwall:0"
+#define  CB_DEVICE_CLIFF "cliff:0"
+#define  CB_DEVICE_OVERCURRENT "overcurrent:0"
+#define  CB_DEVICE_BUTTON "button:0"
+#define  CB_DEVICE_WHEEL_DROP "wheeldrop:0"
+
+
 /** Time to keep the toggle line high for power on [us] */
 #define CREATE_TOGGLE_ON_TIME          400000
 /** Time to keep the toggle line high for power off [us] */

@@ -43,14 +43,14 @@ class CLooseStageLaser : public CStageLaser
      * @param stgLaser stage model of laser
      * @param devName name of device
      */
-    CLooseStageLaser ( Stg::ModelLaser* stgLaser, std::string devName );
+    CLooseStageLaser ( Stg::ModelRanger* stgLaser, std::string devName );
     /** Default destructor */
     virtual ~CLooseStageLaser();
     /**
      * Gets the underlying stage model
      * @return stage model
      */
-    Stg::ModelLaser* getStageModel ();
+    Stg::ModelRanger* getStageModel ();
 };
 
 } // namespace

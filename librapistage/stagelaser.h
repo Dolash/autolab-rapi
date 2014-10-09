@@ -43,7 +43,7 @@ class CStageLaser : public ARangeFinder
      * @param stgLaser stage model of laser
      * @param devName name of device
      */
-    CStageLaser ( Stg::ModelLaser* stgLaser, std::string devName );
+    CStageLaser ( Stg::ModelRanger* stgLaser, std::string devName );
     /** Default destructor */
     virtual ~CStageLaser();
     /**
@@ -65,9 +65,9 @@ class CStageLaser : public ARangeFinder
      */
     virtual void updateData( const double dt);
     /** Friend function of stage model updates */
-    friend int laserUpdate ( Stg::ModelLaser* mod, CStageLaser* laser );
+    friend int laserUpdate ( Stg::ModelRanger* mod, CStageLaser* laser );
     /** Stage laser model */
-    Stg::ModelLaser* mStgLaser;
+    Stg::ModelRanger* mStgLaser;
 };
 
 } // namespace
