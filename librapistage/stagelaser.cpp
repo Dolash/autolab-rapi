@@ -74,42 +74,11 @@ int CStageLaser::init()
 {
   float beamBearing;
   float beamIncrement;
-/*
-  Stg::ModelRanger::Config cfg;
 
-  cfg = mStgLaser->GetConfig();
-  mMaxRange = cfg.range_bounds.max;
-  mMinRange = cfg.range_bounds.min;
-  mNumSamples = cfg.sample_count;
-  mRangeResolution = cfg.resolution;
-  mFov = cfg.fov;
-
-  // initialize data structures
-  mRelativeBeamPose = new CPose2d[mNumSamples];
-  mRangeData = new tRangeData[mNumSamples];
-
-  mBeamConeAngle = 0; // set to zero to indicate it is a laser
-
-  beamBearing = -mFov / 2.0f;
-  beamIncrement = mFov / float( mNumSamples - 1 );
-
-  for ( unsigned int i = 0; i < mNumSamples; i++ ) {
-    mRelativeBeamPose[i].mX = 0.0;
-    mRelativeBeamPose[i].mY = 0.0;
-    mRelativeBeamPose[i].mYaw =  beamBearing;
-    beamBearing += beamIncrement;
-
-    mRangeData[i].range = 0.0;
-    mRangeData[i].reflectance = 0.0;
-  }
-*/
-  mMaxRange = -INFINITY;
-  mMinRange = INFINITY;
-
-  const std::vector<Stg::ModelRanger::Sensor> sensors = mStgLaser->GetSensors();
-  mNumSamples = sensors.size();
+  Stg::ModelRanger::Sensor sensor = mStgLaser->GetSensors()[0];
+  mNumSamples = sensor.sample_count;
   mRangeResolution = 0;
-  mFov = sensors[0].fov; //TWO_PI;
+  mFov = sensor.fov; //TWO_PI
 
   // initialize data structures
   mRelativeBeamPose = new CPose2d[mNumSamples];
@@ -118,14 +87,14 @@ int CStageLaser::init()
   mBeamConeAngle = 0;
   beamBearing = -mFov / 2.0f;
   beamIncrement = mFov / float( mNumSamples - 1 );
+  mMaxRange = sensor.range.max;
+  mMinRange = sensor.range.min;
 
   for ( unsigned int i = 0; i < mNumSamples; i++ ) {
-    mRelativeBeamPose[i].mX = 0.0; //sensors[i].pose.x;
-    mRelativeBeamPose[i].mY = 0.0; //sensors[i].pose.y;
-    mRelativeBeamPose[i].mYaw =  beamBearing; //sensors[i].pose.a;
+    mRelativeBeamPose[i].mX = 0.0;
+    mRelativeBeamPose[i].mY = 0.0;
+    mRelativeBeamPose[i].mYaw =  beamBearing;
     beamBearing += beamIncrement;
-    mMaxRange = max( mMaxRange, sensors[i].range.max );
-    mMinRange = max( mMinRange, sensors[i].range.min );
     mRangeData[i].range = 0.0;
     mRangeData[i].reflectance = 0.0;
   }
@@ -135,34 +104,26 @@ int CStageLaser::init()
 //-----------------------------------------------------------------------------
 void CStageLaser::updateData( const double dt )
 {
-  //std::vector<Stg::ModelRanger::Sample>* sample;
-  //tRangeData* temp;
-  //uint32_t sampleCount;
-
   if ( mFgEnabled ) {
     // get range data from stage, if the simulation is paused at start up
     // stage returns NULL, so we store the result in a temporal variable
     // and store is only if it is any good
-    //Stg::ModelRanger::Config config = mStgLaser->GetConfig();
     Stg::ModelRanger::Sensor sensor = mStgLaser->GetSensors()[0];
-    uint32_t sampleCount = sensor.sample_count; //config.sample_count;
-
+    uint32_t sampleCount = sensor.sample_count;
     if ( sampleCount != mNumSamples ) {
       ERROR2( "Got wrong number of laser readings from Stage, "\
               "expected %d but got %d", mNumSamples, sampleCount );
     }
     else {
-      //if ( !sample.empty() ) {
+      if ( !sensor.ranges.empty() ) { //!sample.empty() ) {
         for ( unsigned int i = 0; i < mNumSamples; i ++ ) {
           mRangeData[i].range = sensor.ranges[i];
           mRangeData[i].reflectance = sensor.intensities[i];
         }
-      //}
+      }
     }
     mTimeStamp = mStgLaser->GetWorld()->SimTimeNow() / 1e6;
     notifyDataUpdateObservers();
-
-
   }
 }
 //-----------------------------------------------------------------------------

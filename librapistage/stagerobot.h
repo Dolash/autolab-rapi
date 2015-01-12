@@ -28,8 +28,8 @@
 namespace Rapi
 {
 
-const std::string RANGER_MODEL_NAME = "ranger";
-const std::string LASER_MODEL_NAME = "laser";
+const std::string RANGER_MODEL_NAME = "ranger:0";
+const std::string LASER_MODEL_NAME = "ranger:1";
 
 /**
  * This robot gets devices for a robot simulated in Stage

@@ -108,7 +108,7 @@ int CStageRobot::findDevice( ARangeFinder* &device, std::string devName )
 
   //***************************
   // Handle Stage's Laser Models
-  if ( devName.find( LASER_MODEL_NAME ) != std::string::npos ) {
+  if ( devName == LASER_MODEL_NAME ) { //( devName.find( LASER_MODEL_NAME ) != std::string::npos ) {
     // no device created yet, so do it now
     //modLaser = ( Stg::ModelLaser* ) mStageModel->GetModel( devName.c_str() );
     modLaser = ( Stg::ModelRanger* ) mStageModel->GetChild( devName.c_str() );
@@ -135,7 +135,7 @@ int CStageRobot::findDevice( ARangeFinder* &device, std::string devName )
 
   //***************************
   // Handle Stage's Ranger Models
-  if ( devName.find( RANGER_MODEL_NAME ) != std::string::npos ) {
+  if ( devName == RANGER_MODEL_NAME ) { //devName.find( RANGER_MODEL_NAME ) != std::string::npos ) {
     // no device created yet, so do it now
     //modRanger = ( Stg::ModelRanger* ) mStageModel->GetModel( devName.c_str() );
     modRanger = ( Stg::ModelRanger* ) mStageModel->GetChild( devName.c_str() );

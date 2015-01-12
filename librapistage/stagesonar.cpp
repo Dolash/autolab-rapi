@@ -68,7 +68,6 @@ int CStageSonar::init()
   // initialize data structures
   mRelativeBeamPose = new CPose2d[mNumSamples];
   mRangeData = new tRangeData[mNumSamples];
-
   for ( unsigned int i = 0; i < mNumSamples; i++ ) {
     mRelativeBeamPose[i].mX = sensors[i].pose.x;
     mRelativeBeamPose[i].mY = sensors[i].pose.y;
@@ -98,8 +97,11 @@ void CStageSonar::updateData( const double dt)
 {
   if ( mFgEnabled ) {
     const std::vector<Stg::ModelRanger::Sensor> sensors = mStgRanger->GetSensors();
-    for ( unsigned int i = 0; i < mNumSamples; i++ )
-      mRangeData[i].range = sensors[i].ranges[0];
+    if ( !sensors[0].ranges.empty() ) {
+      for ( unsigned int i = 0; i < mNumSamples; i++ ) {
+        mRangeData[i].range = sensors[i].ranges[0];
+      }
+    }
     mTimeStamp = mStgRanger->GetWorld()->SimTimeNow() / 1e6;
     notifyDataUpdateObservers();
   }
