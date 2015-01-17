@@ -45,6 +45,7 @@ SET( HEADERS
   rapitypesystem.h
   redis/credis.h
   redisclient.h
+  robotredisclient.h
 )
 
 SET( SOURCES
@@ -83,6 +84,7 @@ SET( SOURCES
   rapitypesystem.cpp
   redis/credis.c
   redisclient.cpp
+  robotredisclient.cpp
 )
 
 IF( WITH_RPC )

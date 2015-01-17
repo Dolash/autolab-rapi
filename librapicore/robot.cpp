@@ -26,10 +26,18 @@
 namespace Rapi
 {
 
-//-----------------------------------------------------------------------------
-ARobot::ARobot()
-{
+ARobot::ARobot() {
   mName = "ARobot";
+  mUpdateInterval = 0.1; // 10 Hz
+  mLastLoopDuration = 0.0;
+  mRobotCtrl = NULL;
+  mFgInitialized = false;
+  mFgRunningSlowly = false;
+}
+//-----------------------------------------------------------------------------
+ARobot::ARobot(std::string name)
+{
+  mName = name;
   mUpdateInterval = 0.1; // 10 Hz
   mLastLoopDuration = 0.0;
   mRobotCtrl = NULL;
@@ -44,6 +52,9 @@ ARobot::~ARobot()
 std::string ARobot::getName() const
 {
   return mName;
+}
+void ARobot::setName(std::string name) {
+  mName = name;
 }
 //-----------------------------------------------------------------------------
 double ARobot::getDurationLastLoop() const
