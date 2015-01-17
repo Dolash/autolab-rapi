@@ -44,8 +44,8 @@
 
 
 
-#define  CB_DEVICE_LASER "ranger:0"
-#define  CB_DEVICE_IR "ir:0"
+#define  CB_DEVICE_LASER "ranger:1"
+#define  CB_DEVICE_IR "ranger:0"
 #define  CB_DEVICE_WALL "wall:0"
 #define  CB_DEVICE_DRIVE_TRAIN "position:0"
 #define  CB_DEVICE_POWER_PACK "powerpack:0"
