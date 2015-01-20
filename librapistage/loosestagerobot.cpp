@@ -39,7 +39,6 @@ int CLooseStageRobot::findDevice( CLooseStageLaser* &device,
                                   std::string devName )
 {
   Stg::ModelRanger* modLaser;
-
   // check if we already created such a device
   device = ( CLooseStageLaser* ) findDeviceByName( devName );
   if ( device ) {
@@ -66,8 +65,10 @@ int CLooseStageRobot::findDevice( CLooseStageLaser* &device,
     return 0; // failure
   }
   device->setEnabled( true );
+
   // enforce one update step, to fill the data structures with valid data
   device->updateData( modLaser->GetUpdateInterval() );
+
   return 1; // success
 }
 //-----------------------------------------------------------------------------
