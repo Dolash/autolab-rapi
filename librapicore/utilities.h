@@ -52,6 +52,9 @@ double const PI = 3.14159265358979323846;
 /** pi/2 */
 double const HALF_PI = 1.570796326794896619;
 
+/** pi/4 */
+double const QUARTER_PI = 0.78539816339;
+
 /** 2 times pi = 6.28... */
 double const TWO_PI = 6.28318530717958;
 

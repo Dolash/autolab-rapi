@@ -23,8 +23,8 @@
 
 #include "redisclient.h"
 #include "pose2d.h"
-//#include "printerror.h"
-//#include <string>
+#include "utilities.h"
+#include <vector>
 
 namespace Rapi
 {
@@ -73,15 +73,31 @@ class CRobotRedisClient
     /**
      * Posts the provided pose to the server
      * @param pose
+     * @param time_ms : The timestamp associated with the pose.
      */
-    int postPose(CPose2d pose);
+    int postPose(CPose2d pose, float time_ms = timeStamp());
 
     /**
      * Gets the pose of the specified client
      * @param name of client
+     * @param time_ms : Assigned the time associated with the returned pose.
      * @return the 2d pose of the client, or NULL if unable to parse pose.
      */
-    CPose2d* getPose(const std::string name);
+    CPose2d* getPose(const std::string name, float* time_ms);
+
+    /**
+     * Gets a message containing any number of terms.
+     * @param key : The key associated with the message.
+     * @return The message composed as a vector of strings.
+     */
+    std::vector<std::string> getMsg(const std::string key);
+
+    /**
+     * Posts a message under the name of this robot name.
+     * @param msg : The message composed as a vector of strings.
+     * @return 1 if succesfully posted message, 0 otherwise.
+     */
+    int postMsg(std::vector<std::string> msg);
 
   protected:
 
