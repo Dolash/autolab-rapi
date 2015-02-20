@@ -1,3 +1,5 @@
+set( STAGE_LIBRARY_DIRS /home/gumstix/stg/lib64 )
+set( STAGE_INCLUDE_DIRS /home/gumstix/stg/include/Stage-4.1 )
 
 SET( PRJ autolab-rapi-stage )
 
@@ -5,7 +7,7 @@ SET( TARGET ${PRJ} )
 
 INCLUDE(FindPkgConfig)
 
-IF (STAGE_FOUND)
+#IF (STAGE_FOUND)
   MESSAGE(STAGE_LIBRARY_DIRS " ${STAGE_LIBRARY_DIRS}" )
   MESSAGE(STAGE_LIBRARIES " ${STAGE_LIBRARIES}" )
   MESSAGE(STAGE_INCLUDE_DIRS " ${STAGE_INCLUDE_DIRS}" )
@@ -33,7 +35,6 @@ IF (STAGE_FOUND)
     stagetextdisplay.h
     stageblobfinder.h
     loosestagerobot.h
-    loosestagelaser.h
     loosestagelights.h
     loosestagedrivetrain2dof.h
     loosestagepowerpack.h
@@ -41,9 +42,12 @@ IF (STAGE_FOUND)
     loosestagetextdisplay.h
     loosestagesonar.h
     loosestageblobfinder.h
+    loosestagelaser.h
     RapiStage
     RapiLooseStage
   )
+
+
 
   SET( SOURCES
     stagerobot.cpp
@@ -88,9 +92,9 @@ IF (STAGE_FOUND)
  # link Stage and the core RAPI library
  TARGET_LINK_LIBRARIES( ${TARGET} ${STAGE_LIBRARIES} autolab-rapi )
 
-ELSEIF(STAGE_FOUND)
-  MESSAGE( STATUS "Stage was not found, rapi-stage will NOT be build")
-ENDIF(STAGE_FOUND)
+#ELSEIF(STAGE_FOUND)
+#  MESSAGE( STATUS "Stage was not found, rapi-stage will NOT be build")
+#ENDIF(STAGE_FOUND)
 
 
 

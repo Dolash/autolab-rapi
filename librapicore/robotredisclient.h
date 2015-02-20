@@ -99,6 +99,14 @@ class CRobotRedisClient
      */
     int postMsg(std::vector<std::string> msg);
 
+    /**
+     * Set the delimeter to use for message passing.
+     * Default is the character ':'
+     * @param delim : The delimeter to use to separate message components.
+     *
+     */
+    void setDelim(char delim);
+
   protected:
 
   private:
@@ -110,6 +118,8 @@ class CRobotRedisClient
     int mPort;
     /** Redis client */
     CRedisClient* mRedisClient;
+    /** Delimeter for messages */
+    char mDelim;
 };
 
 } // namespace
