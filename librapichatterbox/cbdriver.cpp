@@ -842,7 +842,7 @@ int CCBDriver::defineSoundSequence ( unsigned char id, unsigned char* sequence,
       return 0; // failure
     }
     cmdBuf[i+2] = sequence[i];
-    cmdBuf[i+3] = sequence[1+1];
+    cmdBuf[i+3] = sequence[i+1];
   }
   if ( write ( mFd, cmdBuf, 2 ) < 0 ) {
     ERROR1 ( "Failed to send sound sequence: %s", strerror ( errno ) );
