@@ -28,6 +28,7 @@
 #include "powerpack.h"
 #include "fiducialfinder.h"
 #include "lights.h"
+#include "sound.h"
 #include "textdisplay.h"
 #include "binarysensorarray.h"
 #include "switcharray.h"
@@ -129,6 +130,7 @@ class ARobot
     virtual int findDevice ( APowerPack* &device, std::string devName ) = 0;
     virtual int findDevice ( AFiducialFinder* &device, std::string devName ) = 0;
     virtual int findDevice ( ALights* &device, std::string devName ) = 0;
+    virtual int findDevice ( ASound* &device, std::string devName ) = 0;
     virtual int findDevice ( ATextDisplay* &device, std::string devName ) = 0;
     virtual int findDevice ( ABinarySensorArray* &device, std::string devName ) = 0;
     virtual int findDevice ( ASwitchArray* &device, std::string devName ) = 0;

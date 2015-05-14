@@ -419,7 +419,7 @@ int CCBRobot::findDevice( ALights* &device, std::string devName )
   return 1;
 }
 //-----------------------------------------------------------------------------
-int CCBRobot::findDevice( ADevice* &device, std::string devName )
+int CCBRobot::findDevice( ASound* &device, std::string devName )
 {
   if ( not mFgInitialized ) {
     PRT_WARN0( "Robot is not initialized, call init() first" );

@@ -135,7 +135,7 @@ class CCBRobot : public ARobot
     virtual int findDevice ( APowerPack* &device, std::string devName);
     virtual int findDevice ( AFiducialFinder* &device, std::string devName );
     virtual int findDevice ( ALights* &device, std::string devName);
-    virtual int findDevice ( ADevice* &device, std::string devName);
+    virtual int findDevice ( ASound* &device, std::string devName);
     virtual int findDevice ( ATextDisplay* &device, std::string devName );
     virtual int findDevice ( ABinarySensorArray* &device, std::string devName );
     virtual int findDevice ( ASwitchArray* &device, std::string devName);
