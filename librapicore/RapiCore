@@ -46,6 +46,7 @@ const char* RAPI_BUILD_DATE();
 #include "localizer2d.h"
 #include "fiducialfinder.h"
 #include "lights.h"
+#include "sound.h"
 #include "conversions.h"
 #include "robotupdateinterface.h"
 #include "robotctrl.h"

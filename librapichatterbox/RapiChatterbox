@@ -25,6 +25,7 @@
 #include "cbpowerpack.h"
 #include "cblaser.h"
 #include "cbirsensor.h"
+#include "cbsound.h"
 #include "cblights.h"
 #include "cbtextdisplay.h"
 #include "cbbumper.h"
