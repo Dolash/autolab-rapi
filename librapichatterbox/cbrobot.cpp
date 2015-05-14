@@ -50,6 +50,7 @@ CCBRobot::CCBRobot()
   mCBLaser = NULL;
   mCBIrSensor = NULL;
   mCBLights = NULL;
+  mCBSound = NULL;
   mCBTextDisplay = NULL;
   mCBBumper = NULL;
   mCBWallSensor = NULL;
@@ -84,6 +85,9 @@ CCBRobot::~CCBRobot()
 
   if ( mCBLights )
     delete mCBLights;
+
+  if ( mCBSound )
+    delete mCBSound;
 
   if ( mCBTextDisplay )
     delete mCBTextDisplay;
@@ -183,6 +187,8 @@ void CCBRobot::run()
         mCBLaser->updateData( mLastLoopDuration );
       if ( mCBLights )
         mCBLights->updateData( mLastLoopDuration );
+      if ( mCBSound )
+        mCBSound->updateData( mLastLoopDuration );
       if ( mCBIrSensor )
         mCBIrSensor->updateData( mLastLoopDuration );
       if ( mCBTextDisplay )
@@ -410,6 +416,32 @@ int CCBRobot::findDevice( ALights* &device, std::string devName )
 
   // return already existing device
   device = mCBLights;
+  return 1;
+}
+//-----------------------------------------------------------------------------
+int CCBRobot::findDevice( ADevice* &device, std::string devName )
+{
+  if ( not mFgInitialized ) {
+    PRT_WARN0( "Robot is not initialized, call init() first" );
+    device = NULL;
+    return 0; // error
+  }
+
+  if ( devName !=  CB_DEVICE_SOUND ) {
+    ERROR1( "No such device: %s", devName.c_str() );
+    device = NULL;
+    return 0; // error
+  }
+
+  // check if device already exists
+  if ( mCBSound == NULL ) {
+    mCBSound = new CCBSound( mCBDriver,  CB_DEVICE_SOUND );
+    device = mCBSound;
+    return mCBSound->init();
+  }
+
+  // return already existing device
+  device = mCBSound;
   return 1;
 }
 //-----------------------------------------------------------------------------

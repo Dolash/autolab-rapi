@@ -29,6 +29,7 @@
 #include "cblaser.h"
 #include "cbirsensor.h"
 #include "cblights.h"
+#include "cbsound.h"
 #include "cbbumper.h"
 #include "cbtextdisplay.h"
 #include "cbwallsensor.h"
@@ -52,6 +53,7 @@
 #define  CB_DEVICE_FRONT_FIDUCIAL "fiducial:0"
 #define  CB_DEVICE_TOP_FIDUCIAL "fiducial:1"
 #define  CB_DEVICE_LIGHTS "lights:0"
+#define  CB_DEVICE_SOUND "sound:0"
 #define  CB_DEVICE_TEXT_DISPLAY "textdisplay:0"
 #define  CB_DEVICE_LOW_SIDE_DRIVER "lowsidedriver:0"
 #define  CB_DEVICE_PHOTO_SENSOR "photosensor:0"
@@ -75,6 +77,7 @@ namespace Rapi
  *  CB_DEVICE_FRONT_FIDUCIAL   	ICreate omni IR led in front of robot
  *  CB_DEVICE_TOP_FIDUCIAL  	IR fiducial led on base board
  *  CB_DEVICE_LIGHTS         	RGB leds on base board
+ *  CB_DEVICE_SOUND	        	Speakers in Create base
  *  CB_DEVICE_TEXT_DISPLAY      7seg display on top of base board
  *  CB_DEVICE_LOW_SIDE_DRIVER   ICreate low side driver
  *  CB_DEVICE_PHOTO_SENSOR      Photo sensor on top of base board
@@ -132,6 +135,7 @@ class CCBRobot : public ARobot
     virtual int findDevice ( APowerPack* &device, std::string devName);
     virtual int findDevice ( AFiducialFinder* &device, std::string devName );
     virtual int findDevice ( ALights* &device, std::string devName);
+    virtual int findDevice ( ADevice* &device, std::string devName);
     virtual int findDevice ( ATextDisplay* &device, std::string devName );
     virtual int findDevice ( ABinarySensorArray* &device, std::string devName );
     virtual int findDevice ( ASwitchArray* &device, std::string devName);
@@ -160,6 +164,8 @@ class CCBRobot : public ARobot
     CCBIrSensor* mCBIrSensor;
     /** Lights */
     CCBLights* mCBLights;
+    /** Sound */
+    CCBSound* mCBSound;
     /** Text display */
     CCBTextDisplay* mCBTextDisplay;
     /** Bumper */

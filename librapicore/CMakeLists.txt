@@ -15,6 +15,7 @@ SET( HEADERS
   powerpack.h
   fiducialfinder.h
   lights.h
+  sound.h
   textdisplay.h
   binarysensorarray.h
   switcharray.h
@@ -59,6 +60,7 @@ SET( SOURCES
   powerpack.cpp
   fiducialfinder.cpp
   lights.cpp
+  sound.cpp
   textdisplay.cpp
   binarysensorarray.cpp
   analogsensorarray.cpp

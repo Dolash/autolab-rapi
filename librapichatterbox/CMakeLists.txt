@@ -15,6 +15,7 @@ SET( HEADERS
   cbdriver.h
   cbirsensor.h
   cblights.h
+  cbsound.h
   cbtextdisplay.h
   cbbumper.h
   cbwallsensor.h
@@ -39,6 +40,7 @@ SET( SOURCES
   cbdriver.cpp
   cbirsensor.cpp
   cblights.cpp
+  cbsound.cpp
   cbtextdisplay.cpp
   cbbumper.cpp
   cbwallsensor.cpp

@@ -18,33 +18,40 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  **************************************************************************/
+#ifndef ASOUND_H
+#define ASOUND_H
 
-#ifndef RAPIDEVICETYPES_H
-#define RAPIDEVICETYPES_H
+#include "device.h"
 
 namespace Rapi
 {
-/**
- * Definition of device types
- */
-typedef enum  {RAPI_RANGEFINDER,
-               RAPI_DRIVETRAIN2DOF,
-               RAPI_LOCALIZER,
-               RAPI_POWERPACK,
-               RAPI_FIDUCIALFINDER,
-               RAPI_LIGHTS,
-               RAPI_SOUND,
-               RAPI_TEXTDISPLAY,
-               RAPI_BINARYSENSORARRAY,
-               RAPI_SWITCHARRAY,
-               RAPI_ANALOGSENSORARRAY,
-               RAPI_BLOBFINDER
-              } tRapiDeviceType;
 
 /**
- * Mode for writing files
+ * Abstract base class for all sound stuff
+ * @author Jacob Perron <jperron@sfu.ca>
  */
-typedef enum {OVERWRITE, APPEND} tWriteMode;
+class ASound : public ADevice
+{
+  public:
+    /** Default destructor */
+    virtual ~ASound();
+    /**
+     * Get device type
+     * @return device type
+     */
+    virtual tRapiDeviceType getDeviceType() { return RAPI_SOUND; };
+    /**
+     * Prints the devices main information
+     */
+    virtual void print() const;
+
+  protected:
+    /**
+     * Default constructor
+     * @param devName name of device
+     */
+    ASound(std::string devName);
+};
 
 } // namespace
 #endif
